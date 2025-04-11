@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Search Users";
+}
+
+<h2>Search Users</h2>
+
+<input type="text" id="searchBox" placeholder="Nhập tên người dùng..." />
+<button id="btnSearch">Tìm kiếm</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Tuổi</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody id="resultTable">
+        <!-- Dữ liệu sẽ được hiển thị ở đây -->
+    </tbody>
+</table>
+
+@section Scripts {
+    <!-- Nhúng thư viện jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $('#btnSearch').click(function () {
+            var keyword = $('#searchBox').val();
+
+            $.ajax({
+                url: '/Hello/SearchAjax?keyword=' + keyword,
+                method: 'GET',
+                success: function (data) {
+                    var html = '';
+
+                    data.forEach(function (item) {
+                        html += `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.age}</td>
+                            <td>${item.email}</td>
+                        </tr>`;
+                    });
+
+                    $('#resultTable').html(html);
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi!");
+                }
+            });
+        });
+    </script>
+}

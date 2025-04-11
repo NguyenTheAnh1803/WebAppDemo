@@ -1,0 +1,93 @@
+﻿@* @model List<Demo2.Models.UserInfo> *@
+@* @{ *@
+@*     ViewData["Title"] = "Tìm kiếm người dùng"; *@
+@* } *@
+
+@* <h2>Tìm kiếm người dùng</h2> *@
+
+@* <form asp-action="Search" method="get"> *@
+@*     <div class="form-group"> *@
+@*         <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Nhập tên cần tìm" /> *@
+@*     </div> *@
+@*     <button type="submit" class="btn btn-primary">Tìm kiếm</button> *@
+@* </form> *@
+
+@* @if (Model.Count > 0) *@
+@* { *@
+@*     <table class="table mt-3"> *@
+@*         <thead> *@
+@*             <tr> *@
+@*                 <th>Tên</th> *@
+@*                 <th>Tuổi</th> *@
+@*                 <th>Email</th> *@
+@*             </tr> *@
+@*         </thead> *@
+@*         <tbody> *@
+@*             @foreach (var user in Model) *@
+@*             { *@
+@*                 <tr> *@
+@*                     <td>@user.Name</td> *@
+@*                     <td>@user.Age</td> *@
+@*                     <td>@user.Email</td> *@
+@*                 </tr> *@
+@*             } *@
+@*         </tbody> *@
+@*     </table> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <p>Không tìm thấy người dùng nào.</p> *@
+@* } *@
+@{
+    ViewData["Title"] = "Search Users";
+}
+
+<h2>Search Users</h2>
+
+<input type="text" id="searchBox" placeholder="Nhập tên người dùng..." />
+<button id="btnSearch">Tìm kiếm</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Tuổi</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody id="resultTable">
+        <!-- Dữ liệu sẽ được hiển thị ở đây -->
+    </tbody>
+</table>
+
+@section Scripts {
+    <!-- Nhúng thư viện jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $('#btnSearch').click(function () {
+            var keyword = $('#searchBox').val();
+
+            $.ajax({
+                url: '/Hello/SearchAjax?keyword=' + keyword,
+                method: 'GET',
+                success: function (data) {
+                    var html = '';
+
+                    data.forEach(function (item) {
+                        html += `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.age}</td>
+                            <td>${item.email}</td>
+                        </tr>`;
+                    });
+
+                    $('#resultTable').html(html);
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi!");
+                }
+            });
+        });
+    </script>
+}
