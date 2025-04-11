@@ -118,7 +118,11 @@ namespace Demo2.Controllers
         //{
         //    return View();
         //}
-
+        // Create Ajax 
+        public IActionResult CreateAjax()
+        {
+            return View();
+        }   
 
     }
 }
