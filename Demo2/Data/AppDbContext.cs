@@ -9,5 +9,6 @@ namespace Demo2.Data
         {
         }
         public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }
