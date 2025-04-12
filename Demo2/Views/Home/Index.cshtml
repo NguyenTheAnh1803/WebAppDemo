@@ -3,6 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    @if (Context.Session.GetString("UserName") != null)
+    {
+        <p>Xin chào, @Context.Session.GetString("UserName")!</p>
+    }
+    @if (Context.Session.GetString("UserName") != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Logout">Đăng xuất</a>
+        </li>
+    }
+
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
