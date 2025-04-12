@@ -2,6 +2,7 @@ using Demo2.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSession(); // thêm dòng này
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -24,6 +25,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession(); // thêm dòng này sau UseRouting() và UseAuthentication()
+
 
 app.MapControllerRoute(
     name: "default",

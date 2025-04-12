@@ -46,10 +46,8 @@ namespace Demo2.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                ModelState.AddModelError("", "Invalid username or password");
-            }
+            ViewBag.Error = "Sai tài khoản hoặc mật khẩu.";
+
             return View();
         }
         public IActionResult Logout()
